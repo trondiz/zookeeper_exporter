@@ -171,16 +171,6 @@ func (c *zookeeperCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 	ch <- prometheus.MustNewConstMetric(c.upIndicator, prometheus.GaugeValue, status)
 
-	if *resetOnScrape {
-		resetStatistics()
-	}
-}
-func resetStatistics() {
-	log.Info("Resetting Zookeeper statistics")
-	_, ok := sendZkCommand("srst")
-	if !ok {
-		log.Warning("Failed to reset statistics")
-	}
 }
 
 const (
